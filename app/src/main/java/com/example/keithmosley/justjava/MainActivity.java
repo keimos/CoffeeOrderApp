@@ -1,12 +1,12 @@
 package com.example.keithmosley.justjava;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
-
-import java.text.NumberFormat;
 
 
 /**
@@ -42,13 +42,17 @@ public class MainActivity extends AppCompatActivity {
      * This method is called with the order button is clicked
      */
     public void submitOrder(View view) {
-        int price = calculatePrice();
+        EditText customerName = findViewById(R.id.customer_name);
+        String name = customerName.getText().toString();
+
         CheckBox whippedCreamCheckBox = findViewById(R.id.whipcream_checkbox);
         CheckBox chocolateCheckBox = findViewById(R.id.chocolate_checkbox);
+
         boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
         boolean hasChocolate = chocolateCheckBox.isChecked();
 
-        String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate);
+        int price = calculatePrice();
+        String priceMessage = createOrderSummary(name, price, hasWhippedCream, hasChocolate);
         displayMessage(priceMessage);
     }
 
@@ -64,13 +68,14 @@ public class MainActivity extends AppCompatActivity {
     /**
      *  Create order summary
      *
+     *  @param name of customer
      *  @param price of the order
      *  @param addWhippedCream states if the order has whipped cream
      *  @param addChocolate states if the order has chocolate syrup
      *  @return text summary
      */
-    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate) {
-        String priceMessage = "Name: Keith Mosley";
+    private String createOrderSummary(String name, int price, boolean addWhippedCream, boolean addChocolate) {
+        String priceMessage = "Name: " + name;
         priceMessage += "\nAdd Whipped Cream?: " + addWhippedCream;
         priceMessage += "\nAdd Chocolate Syrup?: " + addChocolate;
         priceMessage += "\nQuantity: " + quantity;
@@ -104,4 +109,5 @@ public class MainActivity extends AppCompatActivity {
         TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
         orderSummaryTextView.setText(message);
     }
+
 }
