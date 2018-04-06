@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void increment(View view) {
         quantity = quantity + 1;
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
@@ -35,18 +35,20 @@ public class MainActivity extends AppCompatActivity {
      */
     public void decrement(View view) {
         quantity = quantity - 1;
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
      * This method is called with the order button is clicked
      */
     public void submitOrder(View view) {
+        int price = calculatePrice();
         CheckBox whippedCreamCheckBox = findViewById(R.id.whipcream_checkbox);
+        CheckBox chocolateCheckBox = findViewById(R.id.chocolate_checkbox);
         boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
+        boolean hasChocolate = chocolateCheckBox.isChecked();
 
-
-        String priceMessage = createOrderSummary(price, hasWhippedCream);
+        String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate);
         displayMessage(priceMessage);
     }
 
@@ -64,11 +66,13 @@ public class MainActivity extends AppCompatActivity {
      *
      *  @param price of the order
      *  @param addWhippedCream states if the order has whipped cream
+     *  @param addChocolate states if the order has chocolate syrup
      *  @return text summary
      */
-    private String createOrderSummary(int price, boolean addWhippedCream) {
+    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate) {
         String priceMessage = "Name: Keith Mosley";
         priceMessage += "\nAdd Whipped Cream?: " + addWhippedCream;
+        priceMessage += "\nAdd Chocolate Syrup?: " + addChocolate;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal: $" + price;
         priceMessage += "\nThank You!!";
@@ -89,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
      * This method displays given quantity value
      */
     public void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+        //TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        //priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
     /**
